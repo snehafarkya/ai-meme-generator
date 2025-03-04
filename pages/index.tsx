@@ -26,6 +26,7 @@ export default function Home() {
       document.body.removeChild(link);
     } catch (error) {
       alert("Failed to download meme");
+      console.log(error)
     }
   };
 
