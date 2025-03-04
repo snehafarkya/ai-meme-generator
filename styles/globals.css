@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: darkblue;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --background: white; */
+    /* --foreground: #ededed; */
+    background: url("https://static.vecteezy.com/system/resources/previews/021/745/166/non_2x/aesthetic-blue-brown-pastel-blob-liquid-fluid-shape-boho-and-floral-leaves-abstract-style-template-background-vector.jpg")
+    no-repeat center center fixed;
+  background-size: cover;
+  }
+}
+
+body {
+  /* background: var(--background); */
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
