@@ -4,9 +4,14 @@ interface Meme {
   id: string;
   name: string;
   url: string;
-  width: number;
-  height: number;
   box_count: number;
+}
+
+interface APIResponse {
+  success: boolean;
+  data: {
+    memes: Meme[];
+  };
 }
 
 export const useMemes = () => {
@@ -19,9 +24,9 @@ export const useMemes = () => {
     const fetchMemes = async () => {
       try {
         const response = await fetch("https://api.imgflip.com/get_memes");
-        const data = await response.json();
+        const data: APIResponse = await response.json();
         setMemes(data.data.memes);
-        setSelectedMeme(data.data.memes[0] || null); // Default meme
+        setSelectedMeme(data.data.memes[0]); // Default meme
       } catch (error) {
         console.error("Failed to fetch memes:", error);
       }
@@ -41,14 +46,24 @@ export const useMemes = () => {
     }
   };
 
-  const generateMeme = async (topText: string, bottomText: string) => {
+  const generateMeme = async (texts: string[]) => {
     if (!selectedMeme) return;
     setLoading(true);
 
-    const url = `https://api.imgflip.com/caption_image?template_id=${selectedMeme.id}&username=Sneha8&password=123456789a!&text0=${topText}&text1=${bottomText}&max_font_size=24`;
+    const formData = new URLSearchParams();
+    formData.append("template_id", selectedMeme.id);
+    formData.append("username", "Sneha8");
+    formData.append("password", "123456789a!");
+
+    texts.forEach((text, index) => {
+      formData.append(`boxes[${index}][text]`, text);
+    });
 
     try {
-      const response = await fetch(url, { method: "POST" });
+      const response = await fetch("https://api.imgflip.com/caption_image", {
+        method: "POST",
+        body: formData,
+      });
       const data = await response.json();
 
       if (data.success) {
@@ -63,5 +78,5 @@ export const useMemes = () => {
     }
   };
 
-  return { memes, selectedMeme, generatedMeme, searchMeme, generateMeme, loading };
+  return { memes, selectedMeme, generatedMeme, searchMeme, generateMeme };
 };

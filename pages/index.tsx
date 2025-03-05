@@ -5,12 +5,17 @@ import MemeDisplay from "../components/MemeDisplay";
 import MemeTextInput from "../components/MemeTextInput";
 import Button from "../components/Button";
 
-export default function Home() {
+const Home: React.FC = () => {
   const { selectedMeme, generatedMeme, searchMeme, generateMeme } = useMemes();
-  const [topText, setTopText] = useState<string>("");
-  const [bottomText, setBottomText] = useState<string>("");
+  const [texts, setTexts] = useState<string[]>([]);
 
-  // Download Meme Function
+  const handleTextChange = (index: number, value: string) => {
+    setTexts((prevTexts) => {
+      const newTexts = [...prevTexts];
+      newTexts[index] = value;
+      return newTexts;
+    });
+  };
   const downloadMeme = async () => {
     if (!generatedMeme) return;
 
@@ -25,8 +30,7 @@ export default function Home() {
       link.click();
       document.body.removeChild(link);
     } catch (error) {
-      alert("Failed to download meme");
-      console.log(error)
+      alert("Failed to download meme"+ error);
     }
   };
 
@@ -40,18 +44,22 @@ export default function Home() {
 
       <MemeDisplay meme={selectedMeme} />
 
-      <MemeTextInput onTopTextChange={setTopText} onBottomTextChange={setBottomText} />
+      {selectedMeme && (
+        <MemeTextInput boxCount={selectedMeme.box_count} onTextChange={handleTextChange} />
+      )}
 
       <div className="mt-3 flex gap-3">
         <Button
-          onClick={() => generateMeme(topText, bottomText)}
+          onClick={() => generateMeme(texts)}
           label="Generate Meme"
           color="bg-blue-500 hover:bg-blue-600 hover:shadow-2xl cursor-pointer"
         />
-        {generatedMeme && <Button onClick={downloadMeme} label="Download Meme" color="bg-red-500 cursor-pointer hover:bg-red-600 hover:shadow-2xl" />}
+        {generatedMeme && <Button onClick={downloadMeme} label="Download Meme" color="bg-red-500 cursor-pointer hover:shadow-2xl hover:bg-red-600" />}
       </div>
 
       {generatedMeme && <MemeDisplay meme={{ url: generatedMeme, name: "Generated Meme" }} />}
     </div>
   );
-}
+};
+
+export default Home;
