@@ -68,6 +68,7 @@ const Home: React.FC = () => {
       </div>
 
       {generatedMeme && <MemeDisplay meme={{ url: generatedMeme, name: "Generated Meme" }} />}
+      <b className="mt-4">Created by <a href="http://linkedin.com/in/sneha-farkya" target="_blank" className="underline" rel="noopener noreferrer"> Sneha Farkya </a> 🌱</b>
     </div>
     </>
   );
