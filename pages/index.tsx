@@ -37,7 +37,7 @@ const Home: React.FC = () => {
   return (
     <div className="flex flex-col items-center my-10">
       <h1 className="text-4xl text-center font-semibold drop-shadow-xl md:shadow-2xl">
-        AI Powered <span className="text-green-600 bg-amber-100 px-2">MEME</span> Generator
+        Your Favorite <span className="text-green-600 bg-amber-100 px-2">MEME</span> Generator
       </h1>
 
       <SearchBar onSearch={searchMeme} />
@@ -52,7 +52,7 @@ const Home: React.FC = () => {
         <Button
           onClick={() => generateMeme(texts)}
           label="Generate Meme"
-          color="bg-blue-500 hover:bg-blue-600 hover:shadow-2xl cursor-pointer"
+          color="bg-[#56b8b9] hover:bg-[#075354] hover:shadow-2xl cursor-pointer"
         />
         {generatedMeme && <Button onClick={downloadMeme} label="Download Meme" color="bg-red-500 cursor-pointer hover:shadow-2xl hover:bg-red-600" />}
       </div>

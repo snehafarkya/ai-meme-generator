@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         onChange={(e) => onSearch(e.target.value)}
       />
       <button
-        className="px-4 py-2 bg-blue-500 hover:bg-blue-600 hover:shadow-2xl cursor-pointer text-white rounded"
+        className="px-4 py-2 bg-[#56b8b9] hover:bg-[#075354] hover:shadow-2xl cursor-pointer text-white rounded"
         onClick={() => onSearch("")} // Clears input when clicked
       >
         Search
