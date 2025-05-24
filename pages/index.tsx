@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import MemeDisplay from "../components/MemeDisplay";
 import MemeTextInput from "../components/MemeTextInput";
 import Button from "../components/Button";
+import Head from "next/head";
 
 const Home: React.FC = () => {
   const { selectedMeme, generatedMeme, searchMeme, generateMeme } = useMemes();
@@ -35,6 +36,15 @@ const Home: React.FC = () => {
   };
 
   return (
+    <>
+    <Head>
+    <title>Your Favorite MEME Generator</title>
+        <meta name="description" content="Create your favorite mems according to your style." />
+        
+        <meta property="og:image" content="https://media.istockphoto.com/id/1604212004/vector/flork-internet-meme-on-different-occasions.jpg?s=612x612&w=0&k=20&c=52VwNJqz3LDVfS8LphuNinKZLLV5g-j06M-ciptCKFc=" />
+        <meta property="og:type" content="website" />
+       
+      </Head>
     <div className="flex flex-col items-center my-10">
       <h1 className="text-4xl text-center font-semibold drop-shadow-xl md:shadow-2xl">
         Your Favorite <span className="text-green-600 bg-amber-100 px-2">MEME</span> Generator
@@ -59,6 +69,7 @@ const Home: React.FC = () => {
 
       {generatedMeme && <MemeDisplay meme={{ url: generatedMeme, name: "Generated Meme" }} />}
     </div>
+    </>
   );
 };
 
